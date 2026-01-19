@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Karla, Source_Code_Pro } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import { Menu, X } from "lucide-react";
+import { CoinsIcon, Menu, X } from "lucide-react";
 
+import { Badge } from "@/components/ui/badge";
 const karlaFont = Karla({ subsets: ["latin"] });
 const sourceCodeFont = Source_Code_Pro({ subsets: ["latin"] });
 
@@ -40,9 +41,10 @@ export const Navbar = () => {
 
       {/* Right */}
       <div className="hidden md:flex">
-        <Button variant="outline" className="border-gray-700">
+        <Button variant="outline" className="border-gray-700 cursor-pointer transition-all">
           Dashboard
         </Button>
+        <Badge variant="outline" className="text-white px-4 py-2 ml-4 border-gray-700 border-1"><CoinsIcon />300 Tokens</Badge>
       </div>
 
       {/* Burger Icon (Mobile) */}
