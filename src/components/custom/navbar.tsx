@@ -8,6 +8,7 @@ import { Karla, Source_Code_Pro } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const karlaFont = Karla({ subsets: ["latin"] });
 const sourceCodeFont = Source_Code_Pro({ subsets: ["latin"] });
@@ -46,12 +47,13 @@ export const Navbar = () => {
       {/* Left */}
       <div className="flex items-center gap-x-10">
         {/* Branding */}
-        <div className="flex gap-x-2 items-center cursor-pointer">
+        <Link href="/">        <div className="flex gap-x-2 items-center cursor-pointer">
           <Image src="/logo.svg" alt="logo" width={24} height={24} />
           <h1 className={cn("text-2xl font-semibold", karlaFont.className)}>
             Trioc
           </h1>
-        </div>
+        </div></Link>
+
 
         {/* Desktop Links */}
         <div
