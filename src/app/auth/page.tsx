@@ -1,17 +1,65 @@
 "use client";
 import React, { useState } from 'react';
+import { authClient } from '@/lib/auth-client';
+import { redirect } from "next/navigation";
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const handleGoogleAuth = () => {
-    // In a real app, this would trigger Google OAuth flow
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const { data: session, isPending, error, refetch } = authClient.useSession();
+
+
+  if (session?.user) {
+    redirect("/dahboard");
+  }
+
+  const handleGoogleAuth = async () => {
     console.log(isSignUp ? 'Signing up with Google...' : 'Signing in with Google...');
-    alert(`${isSignUp ? 'Sign up' : 'Sign in'} with Google clicked!`);
+
+
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/dashboard",
+      errorCallbackURL: "/auth",
+      newUserCallbackURL: "/dashboard",
+      disableRedirect: false,
+    });
+
+    console.log("here");
+  };
+
+
+  const handleEmailAuth = async () => {
+    if (isSignUp) {
+      if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return;
+      }
+
+      await authClient.signUp.email({
+        email,
+        password,
+
+        name: "randomName",
+        image: "https://example.com",
+        callbackURL: "/dashboard",
+      });
+    } else {
+      await authClient.signIn.email({
+        email,
+        password,
+        callbackURL: "/dashboard",
+        rememberMe: true,
+      });
+    }
   };
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
+
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-white text-4xl font-bold mb-2">
@@ -60,21 +108,30 @@ export default function AuthPage() {
           </div>
 
           <div className="space-y-4">
+
             <input
               type="email"
               placeholder="Email address"
-              className="w-full bg-transparent border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-zinc-600 transition-all"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full bg-transparent border border-zinc-800 rounded-lg px-4 py-3 text-white"
             />
+
             <input
               type="password"
               placeholder="Password"
-              className="w-full bg-transparent border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-zinc-600 transition-all"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full bg-transparent border border-zinc-800 rounded-lg px-4 py-3 text-white"
             />
+
             {isSignUp && (
               <input
                 type="password"
                 placeholder="Confirm password"
-                className="w-full bg-transparent border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-zinc-600 transition-all"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full bg-transparent border border-zinc-800 rounded-lg px-4 py-3 text-white"
               />
             )}
           </div>
@@ -91,7 +148,10 @@ export default function AuthPage() {
             </div>
           )}
 
-          <button className="w-full mt-6 bg-white hover:bg-gray-100 text-black font-semibold py-3 px-4 rounded-lg transition-all">
+          <button className="w-full mt-6 bg-white hover:bg-gray-100 text-black font-semibold py-3 px-4 rounded-lg transition-all"
+
+            onClick={handleEmailAuth}
+          >
             {isSignUp ? 'Create Account' : 'Sign In'}
           </button>
         </div>
@@ -113,6 +173,6 @@ export default function AuthPage() {
           <a href="#" className="hover:text-gray-400 transition-colors">Privacy Policy</a>
         </p>
       </div>
-    </div>
+    </div >
   );
 }
