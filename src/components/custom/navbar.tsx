@@ -74,7 +74,7 @@ export const Navbar = () => {
 
       {/* Right */}
       <div className="hidden md:flex items-center">
-        <Button variant="outline" className="border-gray-700">
+        <Button variant="outline" className="border-gray-700 cursor-pointer">
           Dashboard
         </Button>
         <Badge
@@ -100,7 +100,7 @@ export const Navbar = () => {
           <h3 className="cursor-pointer">Documentation</h3>
           <h3 className="cursor-pointer">Pricing</h3>
           <h3 className="cursor-pointer">Support</h3>
-          <Button variant="outline" className="border-gray-700">
+          <Button variant="outline" className="border-gray-700 cursor-pointer">
             Dashboard
           </Button>
         </div>
