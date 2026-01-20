@@ -66,6 +66,7 @@ async function Home() {
         Create Agent
       </Button>
 
+      <Separator className="bg-gray-800 mt-16 sm:mt-20" />
       <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-3 w-full max-w-4xl mt-16 sm:mt-20 lg:mt-24 border border-zinc-800 rounded-xl">
 
@@ -73,7 +74,8 @@ async function Home() {
             <ComponentBox
               featureName="Instant AI Support"
               imageUrl="https://cdn-icons-png.flaticon.com/128/4712/4712109.png"
-              className="h-full rounded-none text-xl sm:text-2xl"
+              className="h-full rounded-none text-3xl sm:text-2xl justify-center flex flex-col items-center"
+              first={true}
             />
           </div>
 
@@ -147,7 +149,7 @@ async function Home() {
               <li className="text-gray-300 text-sm">✓ Basic analytics</li>
               <li className="text-gray-300 text-sm">✓ Email support</li>
             </ul>
-            <Button variant="outline" className="w-full border-zinc-700 text-white hover:bg-gray-800 hover:text-white">
+            <Button variant="outline" className="w-full border-zinc-700 cursor-pointer text-white hover:bg-gray-800 hover:text-white">
               Get Started
             </Button>
           </div>
@@ -168,7 +170,7 @@ async function Home() {
               <li className="text-gray-300 text-sm">✓ Priority support</li>
               <li className="text-gray-300 text-sm">✓ Custom branding</li>
             </ul>
-            <Button className="w-full bg-yellow-400 text-black hover:bg-yellow-500">
+            <Button className="w-full bg-transparent outline-yellow-500 border-1 border-yellow-500 hover:text-black hover:bg-yellow-500  text-white cursor-pointer">
               Get Started
             </Button>
           </div>
@@ -185,7 +187,7 @@ async function Home() {
               <li className="text-gray-300 text-sm">✓ Dedicated support</li>
               <li className="text-gray-300 text-sm">✓ SLA guarantee</li>
             </ul>
-            <Button variant="outline" className="w-full border-zinc-700 text-white hover:bg-gray-800 hover:text-white">
+            <Button variant="outline" className="w-full border-zinc-700 text-white cursor-pointer hover:bg-gray-800 hover:text-white">
               Contact Sales
             </Button>
           </div>
