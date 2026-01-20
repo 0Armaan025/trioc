@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const karlaFont = Karla({ subsets: ["latin"] });
 const sourceCodeFont = Source_Code_Pro({ subsets: ["latin"] });
@@ -76,7 +77,7 @@ export const Navbar = () => {
 
       {/* Right */}
       <div className="hidden md:flex items-center">
-        <Button variant="outline" className="border-gray-700 cursor-pointer">
+        <Button variant="outline" className="border-gray-700 cursor-pointer" onClick={() => { redirect("/dashboard") }}>
           Dashboard
         </Button>
         <Badge
@@ -102,7 +103,7 @@ export const Navbar = () => {
           <h3 className="cursor-pointer">Documentation</h3>
           <h3 className="cursor-pointer">Pricing</h3>
           <h3 className="cursor-pointer">Support</h3>
-          <Button variant="outline" className="border-gray-700 cursor-pointer">
+          <Button variant="outline" className="border-gray-700 cursor-pointer" onClick={() => { redirect("/dashboard") }}>
             Dashboard
           </Button>
         </div>

@@ -13,7 +13,7 @@ export default function AuthPage() {
 
 
   if (session?.user) {
-    redirect("/dahboard");
+    redirect("/dashboard");
   }
 
   const handleGoogleAuth = async () => {
@@ -32,6 +32,7 @@ export default function AuthPage() {
   };
 
 
+  //TODO: fix placeholders, add error handling and proper redirection
   const handleEmailAuth = async () => {
     if (isSignUp) {
       if (password !== confirmPassword) {
