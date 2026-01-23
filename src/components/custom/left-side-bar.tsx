@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Home, Compass, Mail, Settings, Plus, Menu, X, Ticket, Link2, LogOut } from 'lucide-react';
+import { Home, Compass, Mail, Settings, Plus, Menu, X, Ticket, Link2, LogOut, DatabaseIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Link from "next/link";
 import { cn } from '@/lib/utils';
@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 const LEFT_SIDE_BAR_ITEMS = [
   { icon: Home, title: 'Dashboard', badge: null, link: "/dashboard" },
   { icon: Compass, title: 'Agents', badge: null, link: "/dashboard/agents" },
+  { icon: DatabaseIcon, title: 'Datasources', badge: null, link: "/dashboard/datasources" },
   { icon: Mail, title: 'Messages', badge: 3, link: "/dashboard/messages" },
   { icon: Ticket, title: 'Tickets', badge: null, link: "/dashboard/tickets" },
   { icon: Link2, title: 'Integrations', badge: null, link: "/dashboard/integrations" },
