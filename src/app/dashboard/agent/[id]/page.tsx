@@ -16,7 +16,6 @@ const AgentDetailPage = () => {
   const router = useRouter();
   const agentId = params?.id;
 
-  // Mock data sources - replace with actual API call
   const [availableDataSources] = useState([
     { id: 'ds_faq_001', name: 'FAQ Database' },
     { id: 'ds_docs_002', name: 'Documentation' },
@@ -24,6 +23,10 @@ const AgentDetailPage = () => {
     { id: 'ds_knowledge_003', name: 'Knowledge Base' },
     { id: 'ds_tickets_004', name: 'Support Tickets' }
   ]);
+
+
+  // don't worry, we will replace this with a real database after a while
+
 
   const [agent, setAgent] = useState({
     _id: '507f1f77bcf86cd799439011',
@@ -53,7 +56,8 @@ const AgentDetailPage = () => {
   const handleDelete = () => {
     if (confirm('Are you sure you want to delete this agent?')) {
       console.log('Deleting agent:', agentId);
-      router.push('/dashboard/agents');
+      router.back();
+      // this is mroe suitable than router.push() or something else
     }
   };
 
@@ -97,23 +101,13 @@ const AgentDetailPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0e0f0e] p-6 lg:p-8">
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div
-          className={cn(
-            "w-full h-full",
-            "bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)]",
-            "bg-[size:40px_40px]"
-          )}
-        />
-      </div>
+    <div className="min-h-screen bg-[#0e0f0e] p-6 lg:p-8 w-full">
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Back Button */}
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors"
+          className="flex items-center gap-2  cursor-pointer text-gray-400 hover:text-white mb-6 transition-colors"
         >
           <ArrowLeft size={18} />
           <span className="text-sm">Back to Agents</span>
@@ -138,7 +132,7 @@ const AgentDetailPage = () => {
               <DialogTrigger asChild>
                 <Button
                   variant="outline"
-                  className="border-zinc-700 text-white hover:bg-zinc-800"
+                  className="border-zinc-700 text-white hover:bg-zinc-800 cursor-pointer hover:text-white"
                   onClick={generateWidgetLink}
                 >
                   <ExternalLink size={16} className="mr-2" />
@@ -177,7 +171,7 @@ const AgentDetailPage = () => {
 
             <Button
               variant="outline"
-              className="border-zinc-700 text-white hover:bg-zinc-800"
+              className="border-zinc-700 text-white hover:bg-zinc-800 hover:text-white cursor-pointer"
               onClick={toggleStatus}
             >
               {agent.status === 'active' ? (
@@ -194,7 +188,7 @@ const AgentDetailPage = () => {
             </Button>
             <Button
               variant="outline"
-              className="border-red-900 text-red-500 hover:bg-red-950"
+              className="border-red-900 text-red-500 hover:bg-red-950 hover:text-white cursor-pointer"
               onClick={handleDelete}
             >
               <Trash2 size={16} />
@@ -209,7 +203,7 @@ const AgentDetailPage = () => {
             {!isEditing ? (
               <Button
                 variant="outline"
-                className="border-zinc-700 text-white hover:bg-zinc-800"
+                className="border-zinc-700 text-white hover:bg-zinc-800 cursor-pointer  hover:text-white"
                 onClick={() => setIsEditing(true)}
               >
                 <Settings size={16} className="mr-2" />
@@ -219,13 +213,13 @@ const AgentDetailPage = () => {
               <div className="flex gap-2">
                 <Button
                   variant="outline"
-                  className="border-zinc-700 text-white hover:bg-zinc-800"
+                  className="border-zinc-700 text-white hover:bg-zinc-800 hover:text-white hover:cursor-pointer"
                   onClick={() => setIsEditing(false)}
                 >
                   Cancel
                 </Button>
                 <Button
-                  className="bg-white text-black hover:bg-gray-200"
+                  className="bg-white text-black hover:bg-gray-200 cursor-pointer"
                   onClick={handleSave}
                 >
                   Save Changes
@@ -361,7 +355,7 @@ const AgentDetailPage = () => {
               <Button
                 onClick={addDataSource}
                 disabled={!selectedDataSource}
-                className="bg-white text-black hover:bg-gray-200"
+                className="bg-white text-black hover:bg-gray-200 hover:text-black cursor-pointer transition-all"
               >
                 Add
               </Button>
@@ -384,7 +378,7 @@ const AgentDetailPage = () => {
                       variant="ghost"
                       size="sm"
                       onClick={() => removeDataSource(dsId)}
-                      className="text-red-500 hover:text-red-400 hover:bg-red-950"
+                      className="text-red-500 hover:bg-red-950 cursor-pointer hover:text-gray-200  transition-all"
                     >
                       Remove
                     </Button>

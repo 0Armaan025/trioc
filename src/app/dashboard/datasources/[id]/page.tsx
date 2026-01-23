@@ -54,11 +54,11 @@ const DataSourceDetail = () => {
     setNewLink('');
   };
 
-  const handleRemoveLink = (id) => {
+  const handleRemoveLink = (id: any) => {
     setLinks(links.filter(link => link.id !== id));
   };
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = (e: any) => {
     const files = Array.from(e.target.files || []);
     const validFiles = files.filter(file =>
       file.name.endsWith('.txt') || file.name.endsWith('.csv')

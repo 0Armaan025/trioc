@@ -19,7 +19,7 @@ const AgentTile = ({ agent }) => {
 
   return (
     <Link href={`/dashboard/agent/${agent.agentId}`}>
-      <div className="group bg-zinc-900 border border-zinc-800 rounded-lg p-5 hover:border-zinc-700 transition-all cursor-pointer relative overflow-hidden min-h-72">
+      <div className="group bg-zinc-900 border w-full border-zinc-800 rounded-lg p-5 hover:border-zinc-700 transition-all cursor-pointer relative overflow-hidden min-h-72">
         {/* Hover gradient effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-zinc-800/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
@@ -40,7 +40,6 @@ const AgentTile = ({ agent }) => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log('More options for', agent.agentId);
                 }}
                 className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-zinc-800 rounded"
               >
@@ -187,7 +186,7 @@ const Agents = () => {
             </div>
             <h3 className="text-white text-lg font-medium mb-2">No agents yet</h3>
             <p className="text-gray-500 text-sm mb-6">Get started by creating your first agent</p>
-            <Button className="bg-white text-black hover:bg-gray-200">
+            <Button className="bg-white text-black hover:bg-gray-200 cursor-pointer">
               <Plus size={18} className="mr-2" />
               Create Your First Agent
             </Button>

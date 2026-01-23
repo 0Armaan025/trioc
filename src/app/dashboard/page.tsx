@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import {
-  Users, Plus, Bot, Ticket, Database, ExternalLink,
+  Plus, Bot, Ticket,
   TrendingUp, MessageSquare, Clock, Building2,
-  Globe, Activity, Zap, ChevronRight, MoreHorizontal
+  Globe, Activity, Zap, ChevronRight,
+  LucideIcon
 } from 'lucide-react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -12,14 +13,9 @@ import {
 } from 'recharts';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 
-// --- Mock Data for Charts ---
+import { redirect } from 'next/navigation';
 const TICKET_DATA = [
   { name: 'Mon', tickets: 45 },
   { name: 'Tue', tickets: 52 },
@@ -38,8 +34,6 @@ const AGENT_WORKLOAD = [
 
 const Dashboard = () => {
   const [hasOrganization, setHasOrganization] = useState(true);
-  const [isAdmin] = useState(true);
-  const [showOrgModal, setShowOrgModal] = useState(!hasOrganization);
 
   // Stats State
   const stats = {
@@ -60,8 +54,8 @@ const Dashboard = () => {
     ]
   };
 
-  const StatCard = ({ icon: Icon, label, value, trend, color = "text-white" }) => (
-    <div className="bg-zinc-900/50 border border-zinc-800 p-5 rounded-xl">
+  const StatCard = ({ icon: Icon, label, value, trend, color = "text-white" }: { icon: LucideIcon, label: string, value: string | number | undefined, trend: string | number | undefined, color: string }) => (
+    <div className="bg-zinc-900/50 border border-zinc-800 p-5 rounded-xl hover:scale-[101%] cursor-pointer transition-all">
       <div className="flex justify-between items-start mb-4">
         <div className={cn("p-2 rounded-lg bg-zinc-800 border border-zinc-700", color)}>
           <Icon size={18} />
@@ -75,7 +69,9 @@ const Dashboard = () => {
     </div>
   );
 
-  if (!hasOrganization) return <div>{/* ... existing Join/Create Logic ... */}</div>;
+  if (!hasOrganization) {
+    redirect("/org");
+  }
 
   return (
     <div className="min-h-screen bg-[#09090b] w-full text-zinc-400 p-4 lg:p-8 font-sans">
@@ -84,33 +80,34 @@ const Dashboard = () => {
         {/* Header Section */}
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-8">
           <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#09090b]/80 to-gray-700/20 flex items-center justify-center text-white shadow-lg shadow-gray-200/20">
               <Building2 size={24} />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white tracking-tight">Acme Corporation</h1>
               <p className="text-sm text-zinc-500 flex items-center gap-2">
                 <Activity size={14} className="text-green-500" />
-                System operational • v2.4.0
+                everything is working sir!
               </p>
             </div>
           </div>
           <div className="flex gap-3">
-            <Button variant="outline" className="border-zinc-800 bg-zinc-900 text-zinc-300 hover:bg-zinc-800">
+            <Button variant="outline" className="border-zinc-800 bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-gray-100 transition-all cursor-pointer">
               Settings
             </Button>
-            <Button className="bg-white text-black hover:bg-zinc-200 shadow-sm">
+            <Button className="bg-white text-black hover:bg-zinc-200 shadow-sm cursor-pointer">
               <Plus size={18} className="mr-2" /> New Agent
             </Button>
           </div>
         </header>
 
         {/* Top Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard icon={Ticket} label="Total Volume" value={stats.totalTickets} trend="+12.5%" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+          {/* stupid eslint error */}
+          <StatCard icon={Ticket} label="Total Volume" value={stats.totalTickets} trend="" />
           <StatCard icon={MessageSquare} label="Live Chats" value={stats.activeTickets} color="text-blue-400" />
           <StatCard icon={Clock} label="Avg. Latency" value={stats.avgResponseTime} color="text-yellow-400" />
-          <StatCard icon={Zap} label="Resolution Rate" value="94.2%" color="text-green-400" trend="+2%" />
+          <StatCard icon={Zap} label="Resolution Rate" value="94.2%" color="text-green-400" trend="" />
         </div>
 
         {/* Main Analytics Grid */}
@@ -120,10 +117,10 @@ const Dashboard = () => {
           <div className="lg:col-span-2 bg-zinc-900/50 border border-zinc-800 rounded-xl p-6">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-white font-semibold flex items-center gap-2">
-                <TrendingUp size={18} className="text-indigo-400" />
+                <TrendingUp size={18} className="text-zinc-300" />
                 Ticket Volume Trends
               </h3>
-              <select className="bg-zinc-800 border-none text-xs text-zinc-300 rounded px-2 py-1">
+              <select className="bg-zinc-800 border-none cursor-pointer text-xs text-zinc-300 rounded px-2 py-1">
                 <option>Last 7 Days</option>
                 <option>Last 30 Days</option>
               </select>
@@ -137,9 +134,9 @@ const Dashboard = () => {
                       <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
-                  <XAxis dataKey="name" stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="#71717a" fontSize={12} tickLine={false} axisLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={true} />
+                  <XAxis dataKey="name" stroke="#71717a" fontSize={12} tickLine={true} axisLine={true} />
+                  <YAxis stroke="#71717a" fontSize={12} tickLine={true} axisLine={true} />
                   <Tooltip
                     contentStyle={{ backgroundColor: '#18181b', border: '1px solid #3f3f46', borderRadius: '8px' }}
                     itemStyle={{ color: '#fff' }}
@@ -153,7 +150,7 @@ const Dashboard = () => {
           {/* User Geographies */}
           <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6">
             <h3 className="text-white font-semibold flex items-center gap-2 mb-6">
-              <Globe size={18} className="text-blue-400" />
+              <Globe size={18} className="text-zinc-200" />
               Traffic Origins
             </h3>
             <div className="space-y-6">
@@ -167,7 +164,7 @@ const Dashboard = () => {
                   </div>
                   <div className="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden">
                     <div
-                      className="bg-indigo-500 h-full rounded-full"
+                      className="bg-gray-200 h-full rounded-full"
                       style={{ width: c.count }}
                     />
                   </div>

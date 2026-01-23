@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Paperclip, MoreVertical, User, Plus, Hash, Users } from 'lucide-react';
+import { Send, Paperclip, MoreVertical, Plus, Hash, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -168,7 +168,7 @@ const Messages = () => {
   };
 
   return (
-    <div className="h-screen bg-[#0e0f0e] flex">
+    <div className="h-screen bg-[#0e0f0e] w-full flex">
       {/* Subtle grid background */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div
@@ -198,7 +198,7 @@ const Messages = () => {
               key={channel.id}
               onClick={() => setSelectedChannel(channel.id)}
               className={cn(
-                "w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors mb-1 group",
+                "w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors cursor-pointer mb-1 group",
                 selectedChannel === channel.id
                   ? "bg-zinc-900 text-white"
                   : "text-gray-400 hover:text-white hover:bg-zinc-900/50"
@@ -241,7 +241,7 @@ const Messages = () => {
                 {isOwner && (
                   <Dialog open={showAddMemberDialog} onOpenChange={setShowAddMemberDialog}>
                     <DialogTrigger asChild>
-                      <Button variant="outline" size="sm" className="border-zinc-700 text-white hover:bg-zinc-800">
+                      <Button variant="outline" size="sm" className="border-zinc-700 text-white cursor-pointer hover:bg-zinc-800">
                         <Plus size={16} className="mr-2" />
                         Add Member
                       </Button>
@@ -270,7 +270,7 @@ const Messages = () => {
                         <Button
                           onClick={handleAddMember}
                           disabled={!newMemberEmail}
-                          className="w-full bg-white text-black hover:bg-gray-200"
+                          className="w-full bg-white  cursor-pointer text-black hover:bg-gray-200"
                         >
                           Add to Channel
                         </Button>
@@ -279,7 +279,7 @@ const Messages = () => {
                   </Dialog>
                 )}
 
-                <button className="p-2 hover:bg-zinc-900 rounded-lg transition-colors">
+                <button className="p-2 hover:bg-zinc-900 rounded-lg  cursor-pointer transition-colors">
                   <MoreVertical size={18} className="text-gray-400" />
                 </button>
               </div>
