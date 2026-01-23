@@ -106,10 +106,11 @@ const LeftSideBar = () => {
       {/* Bottom Section */}
       <div className="p-4 border-t border-zinc-800 space-y-3 relative z-10">
         {/* New Agent Button */}
-        <button className="w-full cursor-pointer bg-[#0e0f0e] border border-zinc-800 hover:bg-zinc-900 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all">
+        <Link href="dashboard/agent/create">        <button className="w-full cursor-pointer bg-[#0e0f0e] border border-zinc-800 hover:bg-zinc-900 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all">
           <Plus size={20} />
           <span>Create Agent</span>
-        </button>
+        </button></Link>
+
 
         {/* User Profile */}
         <Link href="/dashboard/profile" onClick={() => setIsOpen(false)}>

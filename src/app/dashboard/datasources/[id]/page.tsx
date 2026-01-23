@@ -102,7 +102,7 @@ const DataSourceDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0e0f0e] p-6 lg:p-8">
+    <div className="min-h-screen bg-[#0e0f0e] p-6 lg:p-8 w-full">
       {/* Subtle grid background */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div
